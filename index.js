@@ -15,8 +15,9 @@ app.listen(3000, () => {
 });
 
 app.get("/", (req, res) => {
+  res.send("fbhvbshbvhjbdshvsvds");
   // res.sendFile(__dirname + "/ind.html");
-  res.render("ind", {});
+  //res.render("ind", {});
 });
 
 // app.get("/add", (req, res) => {
@@ -36,6 +37,11 @@ app.get("/", (req, res) => {
 //   );
 //   client.end;
 // });
+//
+
+app.get("https://quiz-back-end-production.up.railway.app/", (req, res) => {
+  res.send("fbhghsjvksdb");
+});
 
 app.get("/quizes", (req, res) => {
   client.query(`Select * from quizes`, (err, result) => {
