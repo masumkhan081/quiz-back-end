@@ -15,8 +15,8 @@ app.listen(3000, () => {
 });
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/ind.html");
-  //   res.render("ind", {});
+  // res.sendFile(__dirname + "/ind.html");
+  res.render("ind", {});
 });
 
 // app.get("/add", (req, res) => {
