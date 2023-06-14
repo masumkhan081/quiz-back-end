@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejslayout = require("express-ejs-layouts");
 const app = express();
-// const pool = require("./db");
+const pool = require("./db");
 const client = require("./connection.js");
 //
 app.use(bodyParser.json());
@@ -15,12 +15,14 @@ app.listen(3000, () => {
 });
 
 app.get("/", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
   res.send("root hit");
 });
 
 app.get("/quizes", (req, res) => {
   client.query(`Select * from quizes`, (err, result) => {
     if (!err) {
+      res.header("Access-Control-Allow-Origin", "*");
       res.send(result.rows);
     }
   });
