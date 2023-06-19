@@ -1,4 +1,4 @@
-const client = require("./connection.js");
+const client = require("../connection.js");
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejslayout = require("express-ejs-layouts");
