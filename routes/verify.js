@@ -2,7 +2,7 @@ const express = require("express");
 const verifyRoutes = express.Router();
 const dotenv = require("dotenv");
 dotenv.config();
-const client = require("../database/connection");
+const { pool, client } = require("../database/connection");
 
 verifyRoutes.get("/api/auth/send-verification", (req, res) => {
   const email = req.body.email;

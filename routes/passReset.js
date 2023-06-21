@@ -2,7 +2,7 @@ const express = require("express");
 const resetRoutes = express.Router();
 const dotenv = require("dotenv");
 dotenv.config();
-const client = require("../database/connection");
+const { pool, client } = require("../database/connection");
 
 resetRoutes.post("/api/auth/reset", (req, res) => {
   //

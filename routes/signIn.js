@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 //const passport = require("passport");
 //var LocalStrategy = require("passport-local").Strategy;
-const client = require("../database/connection");
+const { pool, client } = require("../database/connection");
 
 //
 // passport.use(
@@ -22,38 +22,49 @@ const client = require("../database/connection");
 
 signInRoutes.post("/api/auth/signin", (req, res) => {
   //
+  console.log("body:  " + JSON.stringify(req.body));
   const email = req.body.email;
   const password = req.body.password;
+  console.log(email + " <> " + password);
   //
-  client.query(
+  pool.query(
     `Select * from users where email = '${email}' AND password = '${password}'`,
     (err, result) => {
       if (result) {
         let data = result.rows;
         if (data.length == 0) {
           console.log("nothing found");
-          return done(null, {
-            authenticated: false,
-            status: "not-found",
-            msg: "No user associated with this pair",
+          res.json({
+            user: {
+              authenticated: false,
+              status: "not-found",
+              msg: "No user associated with this pair",
+            },
           });
         }
         if (data.length == 1) {
           data = data[0];
           if (data.is_verified) {
-            return {
-              authenticated: true,
-              is_admin: data.is_admin,
-              email: data.email,
-              password: data.password,
-              is_verified: data.is_verified,
-            };
+            res.json({
+              user: {
+                authenticated: true,
+                is_admin: data.is_admin,
+                email: data.email,
+                password: data.password,
+                is_verified: data.is_verified,
+              },
+            });
           } else {
-            return {
-              authenticated: false,
-              status: "not-verified",
-              msg: "Account found but not verified",
-            };
+            res.json({
+              user: {
+                authenticated: false,
+                is_admin: data.is_admin,
+                email: data.email,
+                password: data.password,
+                is_verified: data.is_verified,
+                msg: "Account found but not verified",
+              },
+            });
           }
         }
       }
