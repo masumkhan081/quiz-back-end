@@ -35,35 +35,29 @@ signInRoutes.post("/api/auth/signin", (req, res) => {
         if (data.length == 0) {
           console.log("nothing found");
           res.json({
-            user: {
-              authenticated: false,
-              status: "not-found",
-              msg: "No user associated with this pair",
-            },
+            authenticated: false,
+            status: "not-found",
+            msg: "No user associated with this pair",
           });
         }
         if (data.length == 1) {
           data = data[0];
           if (data.is_verified) {
             res.json({
-              user: {
-                authenticated: true,
-                is_admin: data.is_admin,
-                email: data.email,
-                password: data.password,
-                is_verified: data.is_verified,
-              },
+              authenticated: true,
+              is_admin: data.is_admin,
+              email: data.email,
+              password: data.password,
+              is_verified: data.is_verified,
             });
           } else {
             res.json({
-              user: {
-                authenticated: false,
-                is_admin: data.is_admin,
-                email: data.email,
-                password: data.password,
-                is_verified: data.is_verified,
-                msg: "Account found but not verified",
-              },
+              authenticated: false,
+              is_admin: data.is_admin,
+              email: data.email,
+              password: data.password,
+              is_verified: data.is_verified,
+              msg: "Account found but not verified",
             });
           }
         }
