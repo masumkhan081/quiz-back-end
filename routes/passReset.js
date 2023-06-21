@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const client = require("../database/connection");
 
-resetRoutes.post("/auth/reset", (req, res) => {
+resetRoutes.post("/api/auth/reset", (req, res) => {
   //
   const user_id = req.body.user_id;
   const user_name = req.body.user_name;

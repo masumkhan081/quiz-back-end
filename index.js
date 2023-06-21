@@ -37,6 +37,9 @@ app.use("", require("./routes/signUp"));
 app.use("", require("./routes/signIn"));
 app.use("", require("./routes/passReset"));
 app.use("", require("./routes/verify"));
+app.use("", require("./routes/dashboard"));
+app.use("", require("./routes/quizes"));
+app.use("", require("./routes/quiz-add"));
 
 // app.use("/", function (req, res, next) {
 //   res.sendStatus(200);

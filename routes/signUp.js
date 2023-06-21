@@ -4,14 +4,14 @@ const dotenv = require("dotenv");
 dotenv.config();
 const { pool, client } = require("../database/connection");
 
-signUpRoutes.post("/auth/signup", (req, res) => {
+signUpRoutes.post("/api/auth/signup", (req, res) => {
   console.log("post -> auth/signup...");
   const user_name = req.body.user_name;
   const email = req.body.email;
   const password = req.body.password;
 
   pool.query(
-    `Select * from users where email = '${email}'`,
+    `Select * from users where email = '${email}' AND password = '${password}'`,
     (err, result) => {
       if (result) {
         let data = result.rows;
@@ -22,7 +22,10 @@ signUpRoutes.post("/auth/signup", (req, res) => {
             (err, result) => {
               if (result) {
                 // res.sendStatus(201)
-                res.json({ status: "created", msg: "Registered successfully" });
+                res.json({
+                  status: "created",
+                  msg: "Registered. Plz verify email and log in",
+                });
               }
               if (err) {
                 res.json({ status: "error", msg: "Problem creating new user" });
@@ -49,7 +52,7 @@ signUpRoutes.post("/auth/signup", (req, res) => {
       }
     }
   );
-   pool.end;
+  pool.end;
 });
 
 signUpRoutes.get("/auth/signup", (req, res) => {

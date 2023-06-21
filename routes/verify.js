@@ -4,15 +4,19 @@ const dotenv = require("dotenv");
 dotenv.config();
 const client = require("../database/connection");
 
-verifyRoutes.get("/auth/send-verification", (req, res) => {
+verifyRoutes.get("/api/auth/send-verification", (req, res) => {
   const email = req.body.email;
   const user_id = req.body.user_id;
-  res.send("token to be sent to: :" + email);
+  res.json({ status: "sent", msg: "logic not written yet", to: email });
 });
 
-verifyRoutes.get("/auth/verify/:token", (req, res) => {
+verifyRoutes.get("/api/auth/verify/:token", (req, res) => {
   const token = req.params.token;
-  res.send("token:" + token);
+  if ((token = "pokath")) {
+    res.json({ status: "verified", msg: "logic not written yet" });
+  } else {
+    res.json({ status: null, msg: "logic not written yet" });
+  }
 });
 
 module.exports = verifyRoutes;
